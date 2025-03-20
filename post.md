@@ -6,7 +6,7 @@ Model Context Protocols (MCPs) are standardized adapters that let AI application
 ---
 
 **Introduction**  
-Large Language Models (LLMs) seems to be everywhere, powering applications from chatbots to complex AI assistants. Yet, behind the scenes, integrating external data and functionalities often involves creating some boilerplate tools, prompts, data and etc repeatedly. This is where the Model Context Protocol (MCP) makes a significant impact even powering powering AI-assisted softwares like Cursor or Claude Desktop, leveraging programmatic and customizable use of tools while benefitting from LLM's *reasoning* capabilities.
+Large Language Models (LLMs) are everywhere, powering applications from chatbots to complex AI assistants. Yet, behind the scenes, integrating external data and functionalities often involves creating some boilerplate tools, prompts, data, etc repeatedly. This is where the Model Context Protocol (MCP) makes a significant impact even powering AI-assisted software like Cursor or Claude Desktop, leveraging programmatic and customizable use of tools while benefitting from LLM's *reasoning* capabilities.
 
 MCP is designed to bridge the gap between LLMs and real-world data. It acts as a **universal adapter** (everyone seems to dig the analogy of MCP as a "*USB-C port*") for AI applications—providing a standardized and secure way to expose external data and functionality to your models. MCP separates the concerns of providing context from LLM interactions. This means you can build MCP servers that expose:
   
@@ -14,7 +14,7 @@ MCP is designed to bridge the gap between LLMs and real-world data. It acts as a
 - **Tools:** Functional endpoints (like POST requests) that allow your LLM to execute code or trigger side effects.
 - **Prompts:** Reusable templates that standardize interactions.
 
-In other words, MCP eliminates the extra work of creating tools and etc for each project, allowing out-of-the-box integrating with the outside world (or paid APIs).
+In other words, MCP eliminates the extra work of creating tools, etc for each project, allowing out-of-the-box integration with the outside world (or paid APIs).
 
 In this project, we'll use MCP alongside **LangChain**, **FastAPI**, and **Streamlit** to create a simple yet powerful research assistant. The architecture is composed of three main components:
 
@@ -23,7 +23,7 @@ In this project, we'll use MCP alongside **LangChain**, **FastAPI**, and **Strea
    - **DocLing Server:** Offers document linguistic tools for analyzing text and extracting key insights.
 
 2. **FastAPI Client Server:**  
-   Acting as the coordination layer, this server aggregates the functionalities of the MCP servers. It implements the research assistant agent that leverages multiple MCP tools and exposes an unified API for client interactions.
+   Acting as the coordination layer, this server aggregates the functionalities of the MCP servers. It implements the research assistant agent that leverages multiple MCP tools and exposes a unified API for client interactions.
 
 3. **Streamlit UI:**  
    This user-friendly web interface allows users to submit research queries, view search results, and analyze documents seamlessly.
@@ -32,7 +32,7 @@ And the result is something like this:
 ![search and open article](assets\search_and_open.gif)  
 ![parse and answer](assets\parse_and_answer.gif)
 
-By leveraging MCP, we could easily expand the capabilities of this research assistant. For instance, we could add more MCP servers to integrate with other search mechanisms or even add a persistent database by connecting to a ChromaDB database via MCP. You either pay some ready-to-use MCP tool out there or build your own, the choice is yours!
+By leveraging MCP, we could easily expand the capabilities of this research assistant. For instance, we could add more MCP servers to integrate with other search mechanisms or even add a persistent database by connecting to a ChromaDB database via MCP. You either pay for some ready-to-use MCP tool out there or build your own, the choice is yours!
 
 In the next section, we'll dive into a hands-on tutorial where we implement MCP servers with a LangChain ReAct agent.
 
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     asyncio.run(mcp.run_sse_async())
 ```
 
-Look at how simple it is to expose a tool using MCP! We just create a `FastMCP` entity representing the server (like FastAPI), then The `@mcp.tool` decorator automatically registers the function with the MCP server, making it accessible to the client server. The `get_articles` function is the actual logic, searching for articles on ArXiv based on relevance and returns a formatted string with the results. Here is what it looks like:
+Look at how simple it is to expose a tool using MCP! We just create a `FastMCP` entity representing the server (like FastAPI), and then The `@mcp.tool` decorator automatically registers the function with the MCP server, making it accessible to the client-server. The `get_articles` function is the actual logic, searching for articles on ArXiv based on relevance, and returns a formatted string with the results. Here is what it looks like:
 
 ![Streamlit serach](assets\streamlit_search.png)
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     asyncio.run(mcp.run_sse_async())
 ```
 
-Quite similar to the ArXiv server, we just define the tools and their logic, then expose them using the `@mcp.tool` decorator. Here is what the use of this tool looks like:
+Similar to the ArXiv server, we just define the tools and their logic, then expose them using the `@mcp.tool` decorator. Here is what the use of this tool looks like:
 
 ![Streamlit parse](assets\streamlit_parse.png)
 
@@ -232,13 +232,14 @@ if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8080)
 ```
 
-Here we wrap our client server that uses the library [langchain-mcp-adapters](https://github.com/langchain-ai/langchain-mcp-adapters) to transform the MCP tools into LangChain tools. We just inform the client how to connect to the servers and instantiate the rest as a normal Langchain agent.
+Here we wrap our client-server that uses the library [langchain-mcp-adapters](https://github.com/langchain-ai/langchain-mcp-adapters) to transform the MCP tools into LangChain tools. We just inform the client how to connect to the servers and instantiate the rest as a normal Langchain agent.
 
 ### Streamlit UI
 
-The Streamlit application provides a simple, user-friendly interface for interacting with our research assistant. Since its code involves standard web UI elements and interactions, you can find the full implementation in the repository. In essence, it simply sends research queries to the client server and displays the results.
+The Streamlit application provides a simple, user-friendly interface for interacting with our research assistant. Since its code involves standard web UI elements and interactions, you can find the full implementation in the repository. In essence, it simply sends research queries to the client-server and displays the results.
 
 By modularizing the system with MCP servers and coordinating them through a FastAPI client using LangChain’s ReAct agent, we ensure that the research assistant remains flexible and scalable. This approach lets you easily integrate additional tools or data sources in the future.
 
+Finally, we can wrap everything up using Docker Compose and have an interactive agent with a UI!
 
-Finally, we can wrap everything up using Docker Compose. And have a interactive agent with an UI! Feel free to explore the complete code in my [repo](https://github.com/raca159/mcp-demo) and experiment with the setup using Docker Compose as described in the project README. Happy coding!
+Feel free to explore the complete code in my [repo](https://github.com/raca159/mcp-demo) and experiment with the setup using Docker Compose as described in the project README. Happy coding!
