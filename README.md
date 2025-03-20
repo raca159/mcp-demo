@@ -1,7 +1,7 @@
 # MCP Research Assistant Demo
 
 ## Overview
-This project demonstrates a research assistant application built using Model Control Protocol (MCP), LangChain, FastAPI, and Streamlit. It showcases how to create a modular AI system with MCP servers and Langchain.
+This project demonstrates a research assistant application built using Model Context Protocol (MCP), LangChain, FastAPI, and Streamlit. It showcases how to create a modular AI system with MCP servers and Langchain.
 This demo can search and analyze scientific papers, provide linguistic analysis on documents, and create a user-friendly interface for interacting with these AI capabilities.
 
 <!-- ![search and open article](assets\search_and_open.gif)  
