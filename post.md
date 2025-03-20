@@ -1,4 +1,5 @@
-# Empowering Research with MCP and LangChain: Building a Modular Research Assistant
+# LangChain Meets MCP: Creating an ArXiv Research Chatbot from Scratch
+*A practical approach of leveraging MCP with LangChain to build a user-friendly assistant for navigating and understanding articles.*
 
 ## TL;DR
 Model Context Protocols (MCPs) are standardized adapters that let AI applications connect to external data sources and tools. We build a research assistant using MCP, LangChain, FastAPI, and Streamlit. The system leverages multiple MCP servers to search scientific papers on ArXiv and parse via docling OCR the content for question answering.
